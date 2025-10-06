@@ -1,0 +1,1878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tasks - EduSkill</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2F23;      /* Very dark green */
+            --secondary: #1B4332;    /* Dark green */
+            --accent: #F48C06;       /* Vibrant orange */
+            --accent2: #FAA307;      /* Light orange */
+            --text: #D8F3DC;
+            --background: #081C15;
+            --card-bg: #1B4332;
+            --header-bg: rgba(11, 35, 26, 0.95);
+            --footer-bg: #081C15;
+            --footer-text: #D8F3DC;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, #0A2F23 0%, #1B4332 100%);
+            --gradient-accent: linear-gradient(135deg, #1B4332 0%, #F48C06 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #F44336;
+        }
+
+        .light-theme {
+            --primary: #2D5A4B;
+            --secondary: #4C9F83;
+            --accent: #F48C06;
+            --accent2: #FAA307;
+            --text: #333333;
+            --background: #F5F9F7;
+            --card-bg: #FFFFFF;
+            --header-bg: rgba(245, 249, 247, 0.95);
+            --footer-bg: #2D5A4B;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #4C9F83 0%, #2D5A4B 100%);
+            --gradient-accent: linear-gradient(135deg, #4C9F83 0%, #F48C06 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(28, 80, 58, 0.2) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(244, 140, 6, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(28, 80, 58, 0.2) 0%, transparent 25%);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .light-theme body {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(76, 159, 131, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(244, 140, 6, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(76, 159, 131, 0.1) 0%, transparent 25%);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent2);
+            font-size: 2.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        /* Mobile Nav Button */
+        .mobile-nav-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 150px 0 80px;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        /* Tasks Dashboard */
+        .tasks-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .task-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .task-card:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 0;
+            background: var(--gradient-accent);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .task-card:hover:before {
+            height: 100%;
+        }
+
+        .task-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .task-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .task-card-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            border: 2px solid var(--accent);
+        }
+
+        .task-card h3 {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+
+        .task-card p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--accent2);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover:before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Enhanced Timetable Section */
+        .timetable-section {
+            margin-bottom: 60px;
+        }
+
+        .timetable-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .timetable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .timetable-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .week-navigation {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .week-navigation button {
+            background: var(--gradient);
+            color: var(--text);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .week-navigation button:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .timetable-view-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .view-btn {
+            padding: 10px 20px;
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Enhanced Timetable */
+        .timetable {
+            display: grid;
+            grid-template-columns: 100px repeat(7, 1fr);
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .time-slot {
+            background: var(--secondary);
+            padding: 15px 10px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .day-header {
+            background: var(--gradient);
+            padding: 15px 10px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .timetable-cell {
+            background: rgba(244, 140, 6, 0.1);
+            padding: 15px 10px;
+            border-radius: 8px;
+            min-height: 80px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px dashed rgba(244, 140, 6, 0.3);
+            position: relative;
+        }
+
+        .timetable-cell:hover {
+            background: rgba(244, 140, 6, 0.2);
+            border-color: var(--accent);
+        }
+
+        .timetable-cell.has-event {
+            background: rgba(244, 140, 6, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        .event {
+            background: var(--accent);
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .event:hover {
+            transform: scale(1.02);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .event .delete-event {
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .event .delete-event:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        /* Calendar View */
+        .calendar-view {
+            display: none;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day-header {
+            background: var(--gradient);
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .calendar-day {
+            background: rgba(244, 140, 6, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 100px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px dashed rgba(244, 140, 6, 0.3);
+        }
+
+        .calendar-day:hover {
+            background: rgba(244, 140, 6, 0.2);
+            border-color: var(--accent);
+        }
+
+        .calendar-day.has-event {
+            background: rgba(244, 140, 6, 0.3);
+            border: 2px solid var(--accent);
+        }
+
+        .calendar-day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .calendar-event {
+            background: var(--accent);
+            color: white;
+            padding: 5px;
+            border-radius: 3px;
+            margin-bottom: 3px;
+            font-size: 0.8rem;
+        }
+
+        /* Enhanced To-Do List Section */
+        .todo-section {
+            margin-bottom: 60px;
+        }
+
+        .todo-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .todo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .todo-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .todo-stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .todo-stat {
+            text-align: center;
+        }
+
+        .todo-stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .todo-stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .todo-input-container {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .todo-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid rgba(244, 140, 6, 0.3);
+            border-radius: 8px 0 0 8px;
+            background: var(--background);
+            color: var(--text);
+            font-size: 1rem;
+        }
+
+        .todo-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 140, 6, 0.2);
+        }
+
+        .add-todo-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            padding: 0 25px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .add-todo-btn:hover {
+            background: var(--accent2);
+        }
+
+        .todo-list {
+            list-style: none;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: rgba(244, 140, 6, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .todo-item:hover {
+            background: rgba(244, 140, 6, 0.2);
+            border-color: var(--accent);
+        }
+
+        .todo-item.completed {
+            opacity: 0.7;
+            text-decoration: line-through;
+        }
+
+        .todo-checkbox {
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--accent);
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 1.1rem;
+        }
+
+        .todo-priority {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .priority-high {
+            background: var(--danger);
+            color: white;
+        }
+
+        .priority-medium {
+            background: var(--warning);
+            color: white;
+        }
+
+        .priority-low {
+            background: var(--success);
+            color: white;
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .todo-actions button {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .todo-actions button:hover {
+            color: var(--accent2);
+            transform: scale(1.2);
+        }
+
+        /* Enhanced Reminders Section */
+        .reminders-section {
+            margin-bottom: 60px;
+        }
+
+        .reminders-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .reminders-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .reminders-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .reminders-list {
+            margin-bottom: 30px;
+        }
+
+        .reminder-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(244, 140, 6, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            border: 1px solid rgba(244, 140, 6, 0.2);
+            animation: slideIn 0.3s ease;
+        }
+
+        .reminder-item:hover {
+            background: rgba(244, 140, 6, 0.2);
+            border-color: var(--accent);
+        }
+
+        .reminder-info {
+            flex: 1;
+        }
+
+        .reminder-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--accent);
+        }
+
+        .reminder-details {
+            font-size: 1rem;
+            color: var(--text);
+        }
+
+        .reminder-time {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .reminder-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .reminder-actions button {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .reminder-actions button:hover {
+            color: var(--accent2);
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 60px 0 30px;
+            position: relative;
+            border-top: 2px solid var(--accent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            color: var(--background);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(244, 140, 6, 0.2);
+            font-size: 1.1rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid rgba(244, 140, 6, 0.3);
+            border-radius: 8px;
+            background: var(--background);
+            color: var(--text);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 140, 6, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .timetable {
+                grid-template-columns: 80px repeat(7, 1fr);
+                font-size: 0.9rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-nav-btn {
+                display: block;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .timetable {
+                grid-template-columns: 60px repeat(7, 1fr);
+                font-size: 0.8rem;
+                gap: 5px;
+            }
+
+            .time-slot, .day-header, .timetable-cell {
+                padding: 10px 5px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 5px;
+            }
+
+            .calendar-day-header, .calendar-day {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+            }
+
+            nav.responsive {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                box-shadow: 0 10px 20px var(--shadow);
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                border-top: 2px solid var(--accent);
+            }
+
+            nav.responsive ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Grow Go</span>
+                </a>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-nav-btn" id="mobileNavBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Tasks</h2>
+                <p>Organize your study schedule, track your progress, and set reminders for important deadlines</p>
+            </div>
+
+            <!-- Tasks Dashboard -->
+            <div class="tasks-dashboard">
+                <div class="task-card">
+                    <div class="task-card-header">
+                        <div class="task-card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Timetable</h3>
+                    </div>
+                    <p>Plan your weekly study schedule and set up classes, study sessions, and breaks.</p>
+                    <button class="btn" id="viewTimetableBtn">View Timetable</button>
+                </div>
+                <div class="task-card">
+                    <div class="task-card-header">
+                        <div class="task-card-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3>To-Do List</h3>
+                    </div>
+                    <p>Create and manage your daily tasks, assignments, and study goals.</p>
+                    <button class="btn" id="viewTodoBtn">View To-Do List</button>
+                </div>
+                <div class="task-card">
+                    <div class="task-card-header">
+                        <div class="task-card-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Reminders</h3>
+                    </div>
+                    <p>Set up reminders for important deadlines, exams, and study sessions.</p>
+                    <button class="btn" id="viewRemindersBtn">View Reminders</button>
+                </div>
+            </div>
+
+            <!-- Enhanced Timetable Section -->
+            <section class="timetable-section" id="timetableSection">
+                <div class="timetable-container">
+                    <div class="timetable-header">
+                        <h3>Weekly Timetable</h3>
+                        <div class="week-navigation">
+                            <button id="prevWeekBtn"><i class="fas fa-chevron-left"></i></button>
+                            <span id="currentWeekDisplay">Week of Oct 1, 2024</span>
+                            <button id="nextWeekBtn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="timetable-view-toggle">
+                        <button class="view-btn active" id="timetableViewBtn">Timetable View</button>
+                        <button class="view-btn" id="calendarViewBtn">Calendar View</button>
+                    </div>
+                    
+                    <!-- Timetable View -->
+                    <div class="timetable-view" id="timetableView">
+                        <div class="timetable" id="timetable">
+                            <!-- Time slots and days will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar View -->
+                    <div class="calendar-view" id="calendarView">
+                        <div class="calendar-header">
+                            <h3 id="calendarMonth">October 2024</h3>
+                            <div class="week-navigation">
+                                <button id="prevMonthBtn"><i class="fas fa-chevron-left"></i></button>
+                                <button id="nextMonthBtn"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Calendar days will be generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="addEventBtn">Add New Event</button>
+                </div>
+            </section>
+
+            <!-- Enhanced To-Do List Section -->
+            <section class="todo-section" id="todoSection">
+                <div class="todo-container">
+                    <div class="todo-header">
+                        <h3>To-Do List</h3>
+                        <div class="todo-stats">
+                            <div class="todo-stat">
+                                <div class="todo-stat-number" id="totalTasks">0</div>
+                                <div class="todo-stat-label">Total</div>
+                            </div>
+                            <div class="todo-stat">
+                                <div class="todo-stat-number" id="completedTasks">0</div>
+                                <div class="todo-stat-label">Completed</div>
+                            </div>
+                            <div class="todo-stat">
+                                <div class="todo-stat-number" id="pendingTasks">0</div>
+                                <div class="todo-stat-label">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="todo-input-container">
+                        <input type="text" class="todo-input" id="todoInput" placeholder="Add a new task...">
+                        <button class="add-todo-btn" id="addTodoBtn"><i class="fas fa-plus"></i></button>
+                    </div>
+                    
+                    <ul class="todo-list" id="todoList">
+                        <!-- To-do items will be generated by JavaScript -->
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Enhanced Reminders Section -->
+            <section class="reminders-section" id="remindersSection">
+                <div class="reminders-container">
+                    <div class="reminders-header">
+                        <h3>Reminders</h3>
+                        <button class="btn" id="addReminderBtn">Add Reminder</button>
+                    </div>
+                    
+                    <div class="reminders-list" id="remindersList">
+                        <!-- Reminder items will be generated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Grow Go</h3>
+                    <p>Empowering rural youth through education and skill development programs to create a brighter future.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#programs">Programs</a></li>
+                        <li><a href="mytasks.html">My Tasks</a></li>
+                        <li><a href="communication.html">Level Up: Communication</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Programs</h3>
+                    <ul>
+                        <li><a href="#">STEM Education</a></li>
+                        <li><a href="#">Career Guidance</a></li>
+                        <li><a href="#">Digital Skills</a></li>
+                        <li><a href="#">Language Training</a></li>
+                        <li><a href="#">Workshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter to get updates on our programs and events.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your email">
+                        </div>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Grow Go. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add Event Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <button class="modal-close" id="eventModalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3>Add New Event</h3>
+            </div>
+            <form id="eventForm">
+                <div class="form-group">
+                    <label for="eventTitle">Event Title</label>
+                    <input type="text" id="eventTitle" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventDay">Day</label>
+                        <select id="eventDay" required>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                            <option value="sunday">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventTime">Time</label>
+                        <select id="eventTime" required>
+                            <!-- Time options will be generated by JavaScript -->
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventDescription">Description (Optional)</label>
+                    <textarea id="eventDescription"></textarea>
+                </div>
+                <button type="submit" class="btn">Add Event</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Reminder Modal -->
+    <div class="modal" id="reminderModal">
+        <div class="modal-content">
+            <button class="modal-close" id="reminderModalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-header">
+                <h3>Add New Reminder</h3>
+            </div>
+            <form id="reminderForm">
+                <div class="form-group">
+                    <label for="reminderTitle">Reminder Title</label>
+                    <input type="text" id="reminderTitle" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reminderDate">Date</label>
+                        <input type="date" id="reminderDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reminderTime">Time</label>
+                        <input type="time" id="reminderTime" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="reminderDescription">Description (Optional)</label>
+                    <textarea id="reminderDescription"></textarea>
+                </div>
+                <button type="submit" class="btn">Add Reminder</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or respect OS preference
+        if (localStorage.getItem('theme') === 'light' || 
+            (window.matchMedia('(prefers-color-scheme: light)').matches && !localStorage.getItem('theme'))) {
+            body.classList.add('light-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Navigation
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileNavBtn.addEventListener('click', () => {
+            nav.classList.toggle('responsive');
+        });
+
+        // Dashboard Navigation
+        document.getElementById('viewTimetableBtn').addEventListener('click', () => {
+            document.getElementById('timetableSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('viewTodoBtn').addEventListener('click', () => {
+            document.getElementById('todoSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('viewRemindersBtn').addEventListener('click', () => {
+            document.getElementById('remindersSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Timetable Functionality
+        const timetable = document.getElementById('timetable');
+        const timeSlots = ['8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'];
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        
+        // Initialize timetable
+        function initializeTimetable() {
+            // Clear existing timetable
+            timetable.innerHTML = '';
+            
+            // Add empty cell for top-left corner
+            timetable.appendChild(document.createElement('div'));
+            
+            // Add day headers
+            days.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.textContent = day.substring(0, 3);
+                timetable.appendChild(dayHeader);
+            });
+            
+            // Add time slots and cells
+            timeSlots.forEach(time => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = 'time-slot';
+                timeSlot.textContent = time;
+                timetable.appendChild(timeSlot);
+                
+                days.forEach(day => {
+                    const cell = document.createElement('div');
+                    cell.className = 'timetable-cell';
+                    cell.dataset.day = day.toLowerCase();
+                    cell.dataset.time = time;
+                    
+                    // Check if there's an event for this cell
+                    const events = getEvents();
+                    const event = events.find(e => e.day === day.toLowerCase() && e.time === time);
+                    
+                    if (event) {
+                        cell.classList.add('has-event');
+                        const eventElement = document.createElement('div');
+                        eventElement.className = 'event';
+                        eventElement.innerHTML = `
+                            ${event.title}
+                            <span class="delete-event" data-id="${event.id}"><i class="fas fa-times"></i></span>
+                        `;
+                        cell.appendChild(eventElement);
+                    }
+                    
+                    cell.addEventListener('click', () => {
+                        openEventModal(day.toLowerCase(), time);
+                    });
+                    
+                    timetable.appendChild(cell);
+                });
+            });
+            
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-event').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const eventId = btn.dataset.id;
+                    deleteEvent(eventId);
+                });
+            });
+        }
+        
+        // Calendar Functionality
+        const calendarGrid = document.getElementById('calendarGrid');
+        const calendarMonth = document.getElementById('calendarMonth');
+        let currentDate = new Date();
+        
+        function initializeCalendar() {
+            renderCalendar(currentDate);
+        }
+        
+        function renderCalendar(date) {
+            // Clear existing calendar
+            calendarGrid.innerHTML = '';
+            
+            // Set month header
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            calendarMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+            
+            // Add day headers
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+            const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Add empty cells for days before the first day of the month
+            for (let i = 0; i < startingDay; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'calendar-day';
+                calendarGrid.appendChild(emptyCell);
+            }
+            
+            // Add days of the month
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+                dayCell.innerHTML = `<div class="calendar-day-number">${i}</div>`;
+                
+                // Check if there are events for this day
+                const events = getEvents();
+                const dayEvents = events.filter(event => {
+                    // This is a simplified check - in a real app, you'd need to map days to dates
+                    return true; // Placeholder
+                });
+                
+                if (dayEvents.length > 0) {
+                    dayCell.classList.add('has-event');
+                    dayEvents.forEach(event => {
+                        const eventElement = document.createElement('div');
+                        eventElement.className = 'calendar-event';
+                        eventElement.textContent = event.title;
+                        dayCell.appendChild(eventElement);
+                    });
+                }
+                
+                dayCell.addEventListener('click', () => {
+                    // In a real app, this would open a modal to add events for this specific date
+                    openEventModal();
+                });
+                
+                calendarGrid.appendChild(dayCell);
+            }
+        }
+        
+        // Event management
+        function getEvents() {
+            return JSON.parse(localStorage.getItem('timetableEvents') || '[]');
+        }
+        
+        function saveEvents(events) {
+            localStorage.setItem('timetableEvents', JSON.stringify(events));
+        }
+        
+        function addEvent(event) {
+            const events = getEvents();
+            event.id = Date.now().toString();
+            events.push(event);
+            saveEvents(events);
+            initializeTimetable();
+            renderCalendar(currentDate);
+        }
+        
+        function deleteEvent(eventId) {
+            const events = getEvents();
+            const filteredEvents = events.filter(event => event.id !== eventId);
+            saveEvents(filteredEvents);
+            initializeTimetable();
+            renderCalendar(currentDate);
+        }
+        
+        // View Toggle
+        const timetableViewBtn = document.getElementById('timetableViewBtn');
+        const calendarViewBtn = document.getElementById('calendarViewBtn');
+        const timetableView = document.getElementById('timetableView');
+        const calendarView = document.getElementById('calendarView');
+        
+        timetableViewBtn.addEventListener('click', () => {
+            timetableViewBtn.classList.add('active');
+            calendarViewBtn.classList.remove('active');
+            timetableView.style.display = 'block';
+            calendarView.style.display = 'none';
+        });
+        
+        calendarViewBtn.addEventListener('click', () => {
+            calendarViewBtn.classList.add('active');
+            timetableViewBtn.classList.remove('active');
+            calendarView.style.display = 'block';
+            timetableView.style.display = 'none';
+        });
+        
+        // Calendar Navigation
+        document.getElementById('prevMonthBtn').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar(currentDate);
+        });
+        
+        document.getElementById('nextMonthBtn').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate);
+        });
+        
+        // Event Modal
+        const eventModal = document.getElementById('eventModal');
+        const eventModalClose = document.getElementById('eventModalClose');
+        const addEventBtn = document.getElementById('addEventBtn');
+        const eventForm = document.getElementById('eventForm');
+        const eventTimeSelect = document.getElementById('eventTime');
+        
+        // Populate time options
+        timeSlots.forEach(time => {
+            const option = document.createElement('option');
+            option.value = time;
+            option.textContent = time;
+            eventTimeSelect.appendChild(option);
+        });
+        
+        function openEventModal(day = 'monday', time = '8:00 AM') {
+            document.getElementById('eventDay').value = day;
+            document.getElementById('eventTime').value = time;
+            eventModal.style.display = 'flex';
+        }
+        
+        addEventBtn.addEventListener('click', () => {
+            openEventModal();
+        });
+        
+        eventModalClose.addEventListener('click', () => {
+            eventModal.style.display = 'none';
+        });
+        
+        eventForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const event = {
+                title: document.getElementById('eventTitle').value,
+                day: document.getElementById('eventDay').value,
+                time: document.getElementById('eventTime').value,
+                description: document.getElementById('eventDescription').value
+            };
+            
+            addEvent(event);
+            eventModal.style.display = 'none';
+            eventForm.reset();
+        });
+        
+        // To-Do List Functionality
+        const todoInput = document.getElementById('todoInput');
+        const addTodoBtn = document.getElementById('addTodoBtn');
+        const todoList = document.getElementById('todoList');
+        const totalTasks = document.getElementById('totalTasks');
+        const completedTasks = document.getElementById('completedTasks');
+        const pendingTasks = document.getElementById('pendingTasks');
+        
+        function getTodos() {
+            return JSON.parse(localStorage.getItem('todos') || '[]');
+        }
+        
+        function saveTodos(todos) {
+            localStorage.setItem('todos', JSON.stringify(todos));
+            updateTodoStats();
+        }
+        
+        function updateTodoStats() {
+            const todos = getTodos();
+            const total = todos.length;
+            const completed = todos.filter(todo => todo.completed).length;
+            const pending = total - completed;
+            
+            totalTasks.textContent = total;
+            completedTasks.textContent = completed;
+            pendingTasks.textContent = pending;
+        }
+        
+        function renderTodos() {
+            const todos = getTodos();
+            todoList.innerHTML = '';
+            
+            if (todos.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>No tasks yet</h3>
+                    <p>Add your first task to get started!</p>
+                `;
+                todoList.appendChild(emptyState);
+                return;
+            }
+            
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.className = `todo-item ${todo.completed ? 'completed' : ''}`;
+                li.innerHTML = `
+                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} data-id="${todo.id}">
+                    <span class="todo-text">${todo.text}</span>
+                    ${todo.priority ? `<span class="todo-priority priority-${todo.priority}">${todo.priority}</span>` : ''}
+                    <div class="todo-actions">
+                        <button class="edit-todo" data-id="${todo.id}"><i class="fas fa-edit"></i></button>
+                        <button class="delete-todo" data-id="${todo.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                todoList.appendChild(li);
+            });
+            
+            // Add event listeners
+            document.querySelectorAll('.todo-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const todoId = e.target.dataset.id;
+                    toggleTodoComplete(todoId);
+                });
+            });
+            
+            document.querySelectorAll('.delete-todo').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const todoId = e.target.closest('button').dataset.id;
+                    deleteTodo(todoId);
+                });
+            });
+            
+            updateTodoStats();
+        }
+        
+        function addTodo(text) {
+            const todos = getTodos();
+            const todo = {
+                id: Date.now().toString(),
+                text: text,
+                completed: false,
+                createdAt: new Date().toISOString(),
+                priority: 'medium' // Default priority
+            };
+            todos.push(todo);
+            saveTodos(todos);
+            renderTodos();
+        }
+        
+        function toggleTodoComplete(todoId) {
+            const todos = getTodos();
+            const todo = todos.find(t => t.id === todoId);
+            if (todo) {
+                todo.completed = !todo.completed;
+                saveTodos(todos);
+                renderTodos();
+            }
+        }
+        
+        function deleteTodo(todoId) {
+            const todos = getTodos();
+            const filteredTodos = todos.filter(todo => todo.id !== todoId);
+            saveTodos(filteredTodos);
+            renderTodos();
+        }
+        
+        addTodoBtn.addEventListener('click', () => {
+            const text = todoInput.value.trim();
+            if (text) {
+                addTodo(text);
+                todoInput.value = '';
+            }
+        });
+        
+        todoInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const text = todoInput.value.trim();
+                if (text) {
+                    addTodo(text);
+                    todoInput.value = '';
+                }
+            }
+        });
+        
+        // Reminders Functionality
+        const addReminderBtn = document.getElementById('addReminderBtn');
+        const remindersList = document.getElementById('remindersList');
+        const reminderModal = document.getElementById('reminderModal');
+        const reminderModalClose = document.getElementById('reminderModalClose');
+        const reminderForm = document.getElementById('reminderForm');
+        
+        function getReminders() {
+            return JSON.parse(localStorage.getItem('reminders') || '[]');
+        }
+        
+        function saveReminders(reminders) {
+            localStorage.setItem('reminders', JSON.stringify(reminders));
+        }
+        
+        function renderReminders() {
+            const reminders = getReminders();
+            remindersList.innerHTML = '';
+            
+            if (reminders.length === 0) {
+                const emptyState = document.createElement('div');
+                emptyState.className = 'empty-state';
+                emptyState.innerHTML = `
+                    <i class="fas fa-bell-slash"></i>
+                    <h3>No reminders set</h3>
+                    <p>Add your first reminder to stay on track!</p>
+                `;
+                remindersList.appendChild(emptyState);
+                return;
+            }
+            
+            reminders.forEach(reminder => {
+                const reminderItem = document.createElement('div');
+                reminderItem.className = 'reminder-item';
+                reminderItem.innerHTML = `
+                    <div class="reminder-info">
+                        <div class="reminder-title">${reminder.title}</div>
+                        <div class="reminder-details">
+                            <span class="reminder-time">${formatDate(reminder.date)} at ${reminder.time}</span>
+                            ${reminder.description ? `<br>${reminder.description}` : ''}
+                        </div>
+                    </div>
+                    <div class="reminder-actions">
+                        <button class="delete-reminder" data-id="${reminder.id}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                remindersList.appendChild(reminderItem);
+            });
+            
+            // Add event listeners for delete buttons
+            document.querySelectorAll('.delete-reminder').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const reminderId = e.target.closest('button').dataset.id;
+                    deleteReminder(reminderId);
+                });
+            });
+        }
+        
+        function addReminder(reminder) {
+            const reminders = getReminders();
+            reminder.id = Date.now().toString();
+            reminders.push(reminder);
+            saveReminders(reminders);
+            renderReminders();
+            
+            // Set up browser notification if supported
+            if ('Notification' in window && Notification.permission === 'granted') {
+                const reminderTime = new Date(`${reminder.date}T${reminder.time}`);
+                const now = new Date();
+                const timeUntilReminder = reminderTime.getTime() - now.getTime();
+                
+                if (timeUntilReminder > 0) {
+                    setTimeout(() => {
+                        new Notification('EduSkill Reminder', {
+                            body: `${reminder.title}\n${reminder.description || ''}`,
+                            icon: '/favicon.ico'
+                        });
+                    }, timeUntilReminder);
+                }
+            }
+        }
+        
+        function deleteReminder(reminderId) {
+            const reminders = getReminders();
+            const filteredReminders = reminders.filter(reminder => reminder.id !== reminderId);
+            saveReminders(filteredReminders);
+            renderReminders();
+        }
+        
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+        
+        addReminderBtn.addEventListener('click', () => {
+            reminderModal.style.display = 'flex';
+            // Set minimum date to today
+            document.getElementById('reminderDate').min = new Date().toISOString().split('T')[0];
+        });
+        
+        reminderModalClose.addEventListener('click', () => {
+            reminderModal.style.display = 'none';
+        });
+        
+        reminderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const reminder = {
+                title: document.getElementById('reminderTitle').value,
+                date: document.getElementById('reminderDate').value,
+                time: document.getElementById('reminderTime').value,
+                description: document.getElementById('reminderDescription').value
+            };
+            
+            addReminder(reminder);
+            reminderModal.style.display = 'none';
+            reminderForm.reset();
+        });
+        
+        // Request notification permission
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        
+        // Initialize all components
+        initializeTimetable();
+        initializeCalendar();
+        renderTodos();
+        renderReminders();
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === eventModal) {
+                eventModal.style.display = 'none';
+            }
+            if (e.target === reminderModal) {
+                reminderModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

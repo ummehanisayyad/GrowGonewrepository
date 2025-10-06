@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEM Workshops - EduSkill</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #210440;      /* Dark purple */
+            --secondary: #FDB095;    /* Light peach */
+            --accent: #FFBA00;       /* Vibrant yellow */
+            --accent2: #E5958E;      /* Soft coral */
+            --text: #FFFFFF;
+            --background: #0F0820;
+            --card-bg: #1C0D36;
+            --header-bg: rgba(33, 4, 64, 0.95);
+            --footer-bg: #0F0820;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --gradient: linear-gradient(135deg, #210440 0%, #3A1B6E 100%);
+            --gradient-accent: linear-gradient(135deg, #3A1B6E 0%, #FFBA00 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --particle-color: rgba(255, 186, 0, 0.5);
+            --particle-glow: rgba(255, 186, 0, 0.3);
+        }
+
+        .light-theme {
+            --primary: #3A1B6E;
+            --secondary: #FDB095;
+            --accent: #FFBA00;
+            --accent2: #E5958E;
+            --text: #333333;
+            --background: #F5F2FF;
+            --card-bg: #FFFFFF;
+            --header-bg: rgba(245, 242, 255, 0.95);
+            --footer-bg: #3A1B6E;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #FDB095 0%, #3A1B6E 100%);
+            --gradient-accent: linear-gradient(135deg, #FDB095 0%, #FFBA00 100%);
+            --particle-color: rgba(253, 176, 149, 0.5);
+            --particle-glow: rgba(253, 176, 149, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(253, 176, 149, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 186, 0, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(229, 149, 142, 0.1) 0%, transparent 30%);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+        }
+
+        /* Enhanced background effects */
+        .background-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--particle-color);
+            box-shadow: 0 0 10px var(--particle-glow), 0 0 20px var(--particle-glow);
+            opacity: 0;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .light-theme body {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(253, 176, 149, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 186, 0, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(229, 149, 142, 0.08) 0%, transparent 30%);
+        }
+
+        /* Night mode specific background */
+        body:not(.light-theme) .background-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(58, 27, 110, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(33, 4, 64, 0.2) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        /* Day mode specific background */
+        body.light-theme .background-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(253, 176, 149, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(58, 27, 110, 0.1) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .language-btn {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            color: var(--text);
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 10px var(--shadow);
+        }
+
+        .language-btn i {
+            font-size: 1.2rem;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 10px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow);
+            width: 150px;
+            display: none;
+            z-index: 1000;
+            border: 1px solid var(--accent);
+        }
+
+        .language-dropdown.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .language-option {
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .language-option:hover {
+            background: var(--secondary);
+        }
+
+        .language-option.active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent2);
+            font-size: 2.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        /* Mobile Nav Button */
+        .mobile-nav-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFBA00' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: rotate 30s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--secondary);
+            transition: var(--transition);
+            z-index: -1;
+            border-radius: 8px;
+        }
+
+        .btn:hover:before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Interactive Features */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 186, 0, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+            background: rgba(255, 186, 0, 0.15);
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            left: 80%;
+            animation-delay: -2s;
+            background: rgba(253, 176, 149, 0.1);
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 75%;
+            animation-delay: -5s;
+            background: rgba(229, 149, 142, 0.1);
+        }
+
+        .floating-element:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            top: 60%;
+            left: 15%;
+            animation-delay: -7s;
+            background: rgba(33, 4, 64, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        /* Workshop Details */
+        .workshop-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .detail-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .detail-card:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 0;
+            background: var(--gradient-accent);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .detail-card:hover:before {
+            height: 100%;
+        }
+
+        .detail-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .detail-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--accent);
+        }
+
+        .detail-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .detail-card p {
+            font-size: 1.1rem;
+        }
+
+        /* Importance Section */
+        .importance-section {
+            background: var(--gradient);
+            padding: 100px 0;
+            border-radius: 10px;
+            margin-bottom: 80px;
+            border: 2px solid var(--accent);
+        }
+
+        .importance-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .importance-content h2 {
+            font-size: 2.8rem;
+            margin-bottom: 40px;
+            color: var(--secondary);
+        }
+
+        .importance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .importance-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 186, 0, 0.3);
+            text-align: center;
+        }
+
+        .importance-item i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .importance-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        /* Workshop Schedule */
+        .schedule-container {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin-bottom: 80px;
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .schedule-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .schedule-header h2 {
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .schedule-item {
+            padding: 25px;
+            background: var(--background);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+            border-left: 4px solid var(--accent);
+        }
+
+        .schedule-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow);
+        }
+
+        .schedule-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .schedule-item p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .schedule-item i {
+            color: var(--accent);
+            width: 20px;
+        }
+
+        /* Gallery Section */
+        .gallery-container {
+            margin-bottom: 80px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px var(--shadow);
+            height: 250px;
+            transition: var(--transition);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: rgba(33, 4, 64, 0.8);
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* Testimonials */
+        .testimonials-container {
+            background: var(--gradient);
+            padding: 80px 0;
+            border-radius: 10px;
+            margin-bottom: 80px;
+            border: 2px solid var(--accent);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 186, 0, 0.3);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .testimonial-text:before,
+        .testimonial-text:after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.5;
+        }
+
+        .testimonial-text:before {
+            left: -10px;
+            top: -15px;
+        }
+
+        .testimonial-text:after {
+            right: -10px;
+            bottom: -30px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+
+        .author-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 80px;
+            border: 2px solid var(--accent);
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 40px;
+            position: relative;
+            border-top: 2px solid var(--accent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            color: var(--background);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 186, 0, 0.2);
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-nav-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            nav.responsive {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                box-shadow: 0 10px 20px var(--shadow);
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                border-top: 2px solid var(--accent);
+            }
+
+            nav.responsive ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+         #langBtn { padding: 6px 12px; margin-bottom: 10px; cursor: pointer; }
+    nav ul { list-style: none; padding: 0; }
+    nav ul li { display: inline; margin-right: 10px; }
+
+    </style>
+</head>
+<body>
+    <!-- Background Effect -->
+    <div class="background-effect" id="backgroundEffect"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Grow Go</span>
+                </a>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-hi="होम">Home</a></li>
+                        <li><a href="index.html#contact" data-en="Contact" data-hi="संपर्क ">Contact</a></li>
+                    </ul>
+                </nav>
+                
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-nav-btn" id="mobileNavBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                 <!--Button to switch language -->
+<button id="langBtn">Switch to Hindi</button>
+                    
+            </div>
+        </div>
+        
+    </header>
+
+   
+    <!-- Workshop Details -->
+    <section id="workshop-details">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Our Workshop Approach" data-hi="हमारा कार्यशाला दृष्टिकोण">Our Workshop Approach</h2>
+                <p data-en="We conduct interactive STEM workshops in rural schools, bringing hands-on learning experiences to students who lack access to quality science education." data-hi="हम ग्रामीण स्कूलों में STEM कार्यशालाएँ आयोजित करते हैं और छात्रों को व्यावहारिक सीखने के अनुभव प्रदान करते हैं, जो अच्छी विज्ञान शिक्षा तक पहुँच नहीं पाते">We conduct interactive STEM workshops in rural schools, bringing hands-on learning experiences to students who lack access to quality science education.</p>
+            </div>
+           
+                <p data-en="A STEM workshop integrates Science, Technology, Engineering, and Mathematics to provide hands-on, collaborative learning experiences that develop critical thinking, problem-solving, and creativity. These workshops are vital for fostering practical skills needed in the modern workforce, improving academic performance, and increasing student engagement by connecting theoretical knowledge to real-world applications through projects and activities. STEM workshops can range from those for K-12 students to advanced programs for higher education, focusing on various topics from fundamental concepts to specialized areas like stem cell research." data-hi="एक STEM कार्यशाला विज्ञान, प्रौद्योगिकी, अभियांत्रिकी और गणित को एकीकृत करती है ताकि छात्रों को व्यावहारिक और सहयोगात्मक सीखने के अनुभव प्रदान किए जा सकें, जो उनके आलोचनात्मक सोच, समस्या सुलझाने की क्षमता और रचनात्मकता को विकसित करें। ये कार्यशालाएँ आधुनिक कार्यबल के लिए आवश्यक व्यावहारिक कौशल को बढ़ावा देने, शैक्षणिक प्रदर्शन में सुधार करने, और परियोजनाओं एवं गतिविधियों के माध्यम से सैद्धांतिक ज्ञान को वास्तविक दुनिया से जोड़कर छात्रों की भागीदारी बढ़ाने में महत्वपूर्ण भूमिका निभाती हैं। STEM कार्यशालाएँ K-12 छात्रों से लेकर उच्च शिक्षा के उन्नत कार्यक्रमों तक हो सकती हैं, जो बुनियादी अवधारणाओं से लेकर विशेष क्षेत्रों जैसे कि स्टेम सेल अनुसंधान तक विभिन्न विषयों पर केंद्रित होती हैं">A STEM workshop integrates Science, Technology, Engineering, and Mathematics to provide hands-on, collaborative learning experiences that develop critical thinking, problem-solving, and creativity. These workshops are vital for fostering practical skills needed in the modern workforce, improving academic performance, and increasing student engagement by connecting theoretical knowledge to real-world applications through projects and activities. STEM workshops can range from those for K-12 students to advanced programs for higher education, focusing on various topics from fundamental concepts to specialized areas like stem cell research.<p><br>
+
+                <h2 data-en="Key Aspects of STEM Workshops" data-hi="STEM कार्यशालाओं की मुख्य विशेषताएँ">Key Aspects of STEM Workshops</h2><br>
+
+                <h3 data-en="Integrated Approach:" data-hi="एकीकृत तरीका">Integrated Approach:</h3>
+                <p data-en="STEM workshops don't teach S, T, E, or M in isolation; they blend these disciplines to create a holistic learning experience." data-hi="STEM कार्यशालाएँ S, T, E, या M को अलग-अलग नहीं पढ़ातीं; ये सभी विषयों को मिलाकर एक समग्र सीखने का अनुभव प्रदान करती हैं">STEM workshops don't teach S, T, E, or M in isolation; they blend these disciplines to create a holistic learning experience. </p><br>
+                <h3 data-en="Hands-On Learning:" data-hi="व्यावहारिक सीखना">Hands-On Learning:</h3>
+
+                <p data-en="Emphasis is placed on practical application, with students actively participating in projects, experiments, and activities that allow them to apply theoretical knowledge." data-hi="यहाँ व्यावहारिक सीखने पर ध्यान दिया जाता है, और छात्र परियोजनाओं, प्रयोगों और गतिविधियों में भाग लेकर अपने सैद्धांतिक ज्ञान को लागू कर पाते हैं">Emphasis is placed on practical application, with students actively participating in projects, experiments, and activities that allow them to apply theoretical knowledge. </p><br>
+
+                <h3 data-en="Skill Development" data-hi="कौशल विकास">Skill Development:</h3>
+                <p data-en="Participants develop crucial 21st-century skills such as critical analysis, problem-solving, communication, digital literacy, and independent thinking. " data-hi="छात्र 21वीं सदी के जरूरी कौशल सीखते हैं, जैसे आलोचनात्मक सोच, समस्या हल करना, बातचीत, डिजिटल ज्ञान और स्वतंत्र विचार करना">Participants develop crucial 21st-century skills such as critical analysis, problem-solving, communication, digital literacy, and independent thinking. </p><br>
+
+                <h3 data-en="Real-World Connection:" data-hi="वास्तविक दुनिया से संबंध">Real-World Connection:</h3>
+                <p data-en="Workshops aim to connect classroom learning to real-world problems and applications, making abstract concepts more understandable and relevant." data-hi="कार्यशालाएँ कक्षा की पढ़ाई को असली दुनिया की समस्याओं और प्रयोगों से जोड़ती हैं, जिससे जटिल अवधारणाएँ आसानी से समझ में आती हैं">Workshops aim to connect classroom learning to real-world problems and applications, making abstract concepts more understandable and relevant.</p><br>
+
+                <h2 data-en="Benefits of STEM Workshops" data-hi="STEM कार्यशालाओं के लाभ">Benefits of STEM Workshops</h2><br>
+
+                <h3 data-en="Enhanced Learning Outcomes:" data-hi="बेहतर सीखने के परिणाम">Enhanced Learning Outcomes:</h3>
+                <p data-en="Studies show that hands-on and collaborative activities in STEM workshops positively influence student academic achievement and engagement." data-hi="अध्ययनों के अनुसार, STEM कार्यशालाओं में हाथों-हाथ और मिलकर की जाने वाली गतिविधियाँ छात्रों की पढ़ाई और सक्रिय भागीदारी को बढ़ाती हैं">Studies show that hands-on and collaborative activities in STEM workshops positively influence student academic achievement and engagement. </p><br>
+
+                <h3 data-en="Improved Attitudes:" data-hi="सुधरे दृष्टिकोण">Improved Attitudes:</h3>
+                <p data-en="Participation can lead to more positive attitudes and perceptions toward STEM fields." data-hi="कार्यशालाओं में भाग लेने से STEM विषयों के प्रति छात्रों का नजरिया और सोच अधिक सकारात्मक बनती है">Participation can lead to more positive attitudes and perceptions toward STEM fields.</p><br>
+
+                <h3 data-en="Future Readiness:" data-hi="भविष्य के लिए तैयारी:">Future Readiness:</h3>
+                <p data-en="STEM education equips individuals with the adaptable skills necessary to navigate a changing global economy driven by technological advancements." data-hi="STEM शिक्षा छात्रों को ऐसे कौशल देती है, जिनसे वे तकनीकी प्रगति से बदलती वैश्विक अर्थव्यवस्था में सफल हो सकें">STEM education equips individuals with the adaptable skills necessary to navigate a changing global economy driven by technological advancements.</p><br>
+
+                <h3 data-en="Career Preparation:" data-hi="कैरियर की तैयारी">Career Preparation:</h3>
+                <p data-en="The skills gained in STEM workshops are in high demand by employers and are foundational for success in many growing industries." data-hi="STEM कार्यशालाओं से मिले कौशल की नियोक्ताओं को ज़्यादा ज़रूरत होती है और ये उभरते उद्योगों में सफलता की नींव रखते हैं">The skills gained in STEM workshops are in high demand by employers and are foundational for success in many growing industries.</p><br> 
+                 
+                <u><b><h2 data-en="1.Pre-Workshop Planning: The Foundation" data-hi="1.कार्यशाला पूर्व योजना: नींव">1.Pre-Workshop Planning: The Foundation</h2></b></u><br>
+    
+                <p data-en="A successful workshop is built on a solid plan. Before you even think about the content, you need to establish the core elements of your event." data-hi="सफल कार्यशाला के लिए पक्की योजना ज़रूरी है। सामग्री तय करने से पहले कार्यक्रम के मुख्य बिंदु स्पष्ट करने चाहिए">A successful workshop is built on a solid plan. Before you even think about the content, you need to establish the core elements of your event.</p><br>
+
+                <h3 data-en="Define Your Goals and Objectives:" data-hi="अपने लक्ष्य और उद्देश्यों को परिभाषित करें:"><b>Define Your Goals and Objectives:</b></h3>
+                <p data-en="What do you want participants to gain? Is it to spark curiosity, introduce them to a new concept, teach a specific skill (like coding or robotics), or inspire them to pursue a STEM career? Clear, measurable objectives will guide all your decisions. For example, "Participants will be able to build a simple circuit" is more effective than "Participants will learn about electricity." " data-hi="सोचें कि प्रतिभागियों को क्या देना चाहते हैं — जिज्ञासा जगाना, नया विचार सिखाना, कोई कौशल (जैसे कोडिंग या रोबोटिक्स) सिखाना या STEM करियर के लिए प्रेरित करना। स्पष्ट और मापने योग्य लक्ष्य आपके फैसलों को सही दिशा देंगे। जैसे, 'प्रतिभागी एक सरल सर्किट बना सकेंगे' कहना, 'प्रतिभागी बिजली के बारे में जानेंगे' से बेहतर है"> What do you want participants to gain? Is it to spark curiosity, introduce them to a new concept, teach a specific skill (like coding or robotics), or inspire them to pursue a STEM career? Clear, measurable objectives will guide all your decisions. For example, "Participants will be able to build a simple circuit" is more effective than "Participants will learn about electricity."</p><br>
+
+                <h3 data-en="Identify Your Target Audience:" data-hi="अपने लक्षित दर्शकों की पहचान करें:"><b>Identify Your Target Audience:</b></h3><br>
+
+                <p data-en="Tailor the content to specific age groups (e.g., elementary, middle, or high school). Elementary students need hands-on, playful activities with simple concepts. High school students can handle more complex, project-based learning and real-world problem-solving." data-hi="सामग्री आयु समूह के अनुसार बनाएँ — प्राथमिक बच्चों के लिए खेल-खेल में और सरल गतिविधियाँ, जबकि उच्च कक्षा के छात्रों के लिए प्रोजेक्ट-आधारित सीखना और असली दुनिया की समस्याएँ हल करने के अवसर"><b>Schools:</b> Tailor the content to specific age groups (e.g., elementary, middle, or high school). Elementary students need hands-on, playful activities with simple concepts. High school students can handle more complex, project-based learning and real-world problem-solving.</p>
+
+                <p data-en="Villages:" data-hi="गाँव" data-en="Focus on activities that are relevant to their daily lives and can be done with low-cost, readily available materials. Emphasize how STEM can solve local problems, such as clean water, sustainable agriculture, or simple mechanics." data-hi="ऐसी गतिविधियों पर ध्यान दें जो उनके दैनिक जीवन से संबंधित हों और जिन्हें कम लागत वाले, आसानी से उपलब्ध संसाधनों से किया जा सके। यह दिखाएँ कि STEM स्थानीय समस्याओं को कैसे हल कर सकता है, जैसे स्वच्छ पानी, टिकाऊ कृषि, या सरल यांत्रिकी"><b>Villages:</b> Focus on activities that are relevant to their daily lives and can be done with low-cost, readily available materials. Emphasize how STEM can solve local problems, such as clean water, sustainable agriculture, or simple mechanics.</p>
+
+                <p><b>Colleges:</b> Design workshops around advanced topics, specific lab techniques, professional development, or career skills. College students are often looking for practical experience and networking opportunities.</p><br>
+
+                <h3><b>Develop a Budget and Secure Resources: </b></h3><br>
+
+                <p><b>Funding:</b> Identify sources of funding, whether it's through grants, corporate sponsorships, or partnerships.</p>
+
+                <p><b>Materials:</b> List all the materials and equipment needed, from simple items like paper and glue to more advanced technology like microcontrollers or 3D printers.</p>
+
+                <p><b>Venue: </b>Secure a suitable space. This could be a school classroom, a community center, a college lab, or even an open-air space in a village. Ensure the venue has the necessary amenities, like electricity, seating, and a clean workspace.</p><br>
+
+                <p><h3><b>Recruit Your Team:</b></h3><br>You can't do it alone. Assemble a team of qualified facilitators, subject matter experts, and volunteers. Train them on the workshop content and your approach to teaching.</p><br>
+
+                <u><b><h2>2. Participant Recruitment: Getting the Word Out</h2></b></u><br>
+
+               <p>The way you attract participants varies significantly based on your audience.</p><br>
+
+                <h3><b>For Schools:</b></h3><br>
+
+                <p><b>Formal Communication:</b> Get buy-in from school administrators and teachers first. This is a critical step. They can help you integrate the workshop into the curriculum, make it an after-school club, or offer it for extra credit.</p>
+
+                <p><b>Teacher Collaboration:</b> Work directly with science, math, and technology teachers. They know their students' interests and can encourage participation.</p>
+
+                <p><b>Parental Engagement:</b> Send out flyers, emails, or use the school's communication channels to inform parents about the workshop's benefits.</p>
+
+                <p><b>Student Outreach:</b> Visit classrooms, put up posters, and make announcements during school assemblies.</p><br>
+
+                <h3><b>For Villages:</b></h3><br>
+                
+                <p><b>Community Partnerships: </b>Partner with local community leaders, non-governmental organizations (NGOs), or community centers. Their trust and influence are invaluable for mobilizing people.</p>
+
+                <p><b>Personal Connection:</b> Go to the community and speak to people directly. Explain the value of the workshop in their own language and in terms they can understand.</p>
+
+                <p><b>Demonstrations:</b> Conduct a small, engaging demonstration to spark interest and curiosity. This can be a simple experiment that captivates people and makes them want to learn more.</p>
+
+                <p><b>Word-of-Mouth:</b> Encourage early participants or community leaders to spread the word.</p><br>
+
+                <h3><b>For Colleges:</b></h3><br>
+
+                <p><b>Department Collaboration:</b> Work with academic departments, student societies, and faculty advisors. They can promote the workshop to relevant students.</p>
+
+                <p><b>Targeted Marketing:</b> Use social media, email lists, and campus newsletters to reach specific majors and interest groups.</p>
+
+                <p><b>Incentives:</b> Offer incentives like professional development credits, certificates, or networking opportunities with industry professionals.</p>
+
+                <p><b>Showcasing Success:</b> Highlight the qualifications of your facilitators and the success of past workshops.</p><br>
+
+                <u><b><h2>3. Professional Workshop Execution: The Main Event</h2></b></u><br>
+
+                <p>This is where your planning comes to life. A professional workshop is more than just a presentation; it's a carefully orchestrated learning experience.</p><br>
+
+                <h3><b>Engaging and Interactive Activities:</b></h3><br>
+
+                <p><b>Hands-On Learning:</b> This is the cornerstone of STEM education. Participants should be actively doing, building, and experimenting. For example, instead of just explaining circuits, have them build one.</p>
+
+                <p><b>Inquiry-Based Learning:</b> Encourage participants to ask questions, investigate problems, and find their own solutions. The facilitator's role is to guide, not to lecture.</p>
+
+                <p><b>Real-World Relevance:</b> Connect the concepts to real-world applications and problems. This makes the information more relatable and impactful.</p><br>
+
+                <h3><b>Structured Format:</b></h3><br>
+
+                <p><b>Introduction:</b> Start with a clear introduction to the topic and the day's agenda. Explain the goals and what participants will achieve.</p>
+
+               <p><b>Step-by-Step Guidance:</b> Break down complex activities into manageable steps. Provide clear instructions and a checklist of materials.<p>
+
+                <p><b>Group Work and Collaboration:</b> Encourage teamwork. Many STEM problems are best solved through collaboration and diverse perspectives.</p>
+
+                <p><b>Reflection and Debrief:</b> At the end of each activity, or at the end of the workshop, have a discussion. Ask participants what they learned, what challenges they faced, and how they would apply the knowledge.</p>
+
+                <p><b>Flexibility and Adaptability:</b> Be prepared for things to go wrong. A professional facilitator knows how to troubleshoot equipment issues, adjust to different skill levels, and manage time effectively.</p><br>
+       
+    </section>
+
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EduSkill Foundation</h3>
+                    <p>Bringing quality STEM education to underserved communities across India.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#programs">Programs</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Programs</h3>
+                    <ul>
+                        <li><a href="#">STEM Workshops</a></li>
+                        <li><a href="#">Teacher Training</a></li>
+                        <li><a href="#">Digital Literacy</a></li>
+                        <li><a href="#">Career Guidance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Pune, Maharashtra</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@eduskill.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 EduSkill Foundation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        
+        // Mobile Navigation
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileNavBtn.addEventListener('click', () => {
+            nav.classList.toggle('responsive');
+        });
+        
+        // Scroll Animation
+        const sections = document.querySelectorAll('section');
+        
+        function checkScroll() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const triggerBottom = window.innerHeight * 0.8;
+                
+                if (sectionTop < triggerBottom) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        
+        // Initial check
+        checkScroll();
+        
+        // Check on scroll
+        window.addEventListener('scroll', checkScroll);
+        
+        // Background Particles
+        const backgroundEffect = document.getElementById('backgroundEffect');
+        
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                backgroundEffect.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+
+        const btn = document.getElementById("langBtn");
+let isEnglish = true;
+
+btn.addEventListener("click", () => {
+  // Select all elements that have data-en attribute
+  const elements = document.querySelectorAll("[data-en]");
+  
+  elements.forEach(el => {
+    el.innerText = isEnglish ? el.getAttribute("data-hi") : el.getAttribute("data-en");
+  });
+
+  btn.innerText = isEnglish ? "Switch to English" : "Switch to Hindi";
+  isEnglish = !isEnglish;
+});
+    </script>
+</body>
+</html>

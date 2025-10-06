@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms & Conditions - EduSkill STEM Program</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0A2F23;
+            --secondary: #1B4332;
+            --accent: #F48C06;
+            --accent2: #FAA307;
+            --text: #D8F3DC;
+            --background: #081C15;
+            --card-bg: #1B4332;
+            --header-bg: rgba(11, 35, 26, 0.95);
+            --footer-bg: #081C15;
+            --footer-text: #D8F3DC;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, #0A2F23 0%, #1B4332 100%);
+            --gradient-accent: linear-gradient(135deg, #1B4332 0%, #F48C06 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --particle-color: rgba(244, 140, 6, 极客时间.5);
+            --particle-glow: rgba(244, 140, 6, 0.3);
+        }
+
+        .light-theme {
+            --primary: #2D5A4B;
+            --secondary: #4C9F83;
+            --accent: #F48C06;
+            --accent2: #FAA307;
+            --text: #333333;
+            --background: #F5F9极客时间;
+            --card-bg: #FFFFFF;
+            --header-bg: rgba(245, 249, 247, 0.95);
+            --footer-bg: #2D5A4B;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #4C9F83 0%, #2D5A4B 100%);
+            --gradient-accent: linear-gradient(135deg, #4C9F83 0%, #F48C06 100%);
+            --particle-color: rgba(76, 159, 131, 0.5);
+            --particle-glow: rgba(76, 159, 131, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(28, 80, 58, 0.2) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(244, 140, 6, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(28, 80, 58, 0.2) 0%, transparent 25%);
+            transition: background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .background-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--particle-color);
+            box-shadow: 0 0 10px var(--particle-glow), 0 0 20px var(--particle-glow);
+            opacity: 0;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes float极客时间 {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .light-theme body {
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(76, 159, 131, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(244, 140, 6, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 50% 80%, rgba(76, 159, 131, 0.1) 0%, transparent 25%);
+        }
+
+        body:not(.light-theme) .background-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(27, 67, 50, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(10, 47, 35, 0.2) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        body.light-theme .background-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(76, 159, 131, 0.1) 0%, transparent ),
+                radial-gradient(circle at 80% 70%, rgba(45, 90, 75, 0.1) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent2);
+            font-size: 2.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        /* Mobile Nav Button */
+        .mobile-nav-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 150px 0 80px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* Terms Content */
+        .terms-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 15px 40px var(--shadow);
+            margin-bottom: 80px;
+            border: 1px solid rgba(244, 140, 6, 0.2);
+        }
+
+        .terms-section {
+            margin-bottom: 40px;
+        }
+
+        .terms-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-section h2 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(244, 140, 6, 0.3);
+        }
+
+        .terms-section h3 {
+            font-size: 1.4rem;
+            color: var(--accent2);
+            margin: 25px 0 15px;
+        }
+
+        .terms-section p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .terms-section ul, .terms-section ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .terms-section li {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: rgba(244, 140, 6, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent2);
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 40px;
+            position: relative;
+            border-top: 2px solid var(--accent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            color: var(--background);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(244, 140, 6, 0.2);
+            font-size: 1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .terms-container {
+                padding: 40px 30px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-nav-btn {
+                display: block;
+            }
+
+            .main-content {
+                padding: 130px 0 60px;
+            }
+
+            .page-header h1 {
+                font-size: 2.4rem;
+            }
+
+            .terms-container {
+                padding: 30px 20px;
+            }
+
+            nav.responsive {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                box-shadow: 0 10px 20px var(--shadow);
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                border-top: 2px solid var(--accent);
+            }
+
+            nav.responsive ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Effect -->
+    <div class="background-effect" id="backgroundEffect"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduSkill</span>
+                </a>
+                <nav id="nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-nav-btn" id="mobileNavBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="page-header">
+                <h1>Terms & Conditions</h1>
+                <p>Please read these terms and conditions carefully before using our website and services</p>
+            </div>
+
+            <div class="terms-container">
+                <div class="terms-section">
+                    <h2>1. Acceptance of Terms</h2>
+                    <p>By accessing and using the EduSkill website ("the Website"), you accept and agree to be bound by the terms and provision of this agreement. Additionally, when using these particular services, you shall be subject to any posted guidelines or rules applicable to such services.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>2. Use of Services</h2>
+                    <p>EduSkill provides various STEM education services, resources, and programs. You agree to use these services only for purposes that are permitted by these Terms and any applicable law, regulation, or generally accepted practices in your jurisdiction.</p>
+                    
+                    <h3>2.1. Eligibility</h3>
+                    <p>Our services are available to individuals who are at least 13 years old. If you are under 18, you may use our services only with the involvement of a parent or guardian.</p>
+                    
+                    <h3>2.2. Account Responsibility</h3>
+                    <p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer. You agree to accept responsibility for all activities that occur under your account.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>3. Intellectual Property Rights</h2>
+                    <p>Unless otherwise indicated, all content on this Website, including text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of EduSkill or its content suppliers and is protected by international copyright laws.</p>
+                    
+                    <h3>3.1. License to Use</h3>
+                    <p>EduSkill grants you a limited, non-exclusive, non-transferable license to access and make personal use of this site. This license does not include any resale or commercial use of this site or its contents.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>4. User Conduct</h2>
+                    <p>As a condition of your use of the Website, you warrant that you will not use the Website for any purpose that is unlawful or prohibited by these Terms. You may not use the Website in any manner that could damage, disable, overburden, or impair the Website.</p>
+                    
+                    <h3>4.1. Prohibited Activities</h3>
+                    <p>You agree not to:</p>
+                    <ul>
+                        <li>Use the Website for any illegal purpose or in violation of any local, state, national, or international law</li>
+                        <li>Harass, threaten, demean, embarrass, or otherwise harm any other user of the Website</li>
+                        <li>Impersonate any person or entity or falsely state or otherwise misrepresent your affiliation with a person or entity</li>
+                        <li>Interfere with or disrupt the Website or servers or networks connected to the Website</li>
+                        <li>Attempt to gain unauthorized access to any portion of the Website or any other accounts, computer systems, or networks connected to the Website</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>5. Privacy Policy</h2>
+                    <p>Your privacy is important to us. Our Privacy Policy explains how we collect, use, protect, and disclose your information. By using our Website, you agree to the collection and use of information in accordance with our Privacy Policy.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>6. Modifications to Service</h2>
+                    <p>EduSkill reserves the right at any time to modify or discontinue, temporarily or permanently, the Website (or any part thereof) with or without notice. You agree that EduSkill shall not be liable to you or to any third party for any modification, suspension, or discontinuance of the Website.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>7. Termination</h2>
+                    <p>You agree that EduSkill may, under certain circumstances and without prior notice, immediately terminate your account and access to the Website. Cause for such termination shall include, but not be limited to:</p>
+                    <ul>
+                        <li>Violations of these Terms or other incorporated agreements or guidelines</li>
+                        <li>Requests by law enforcement or other government agencies</li>
+                        <li>Discontinuance or material modification to the Website (or any part thereof)</li>
+                        <li>Unexpected technical or security issues or problems</li>
+                    </ul>
+                </div>
+
+                <div class="terms-section">
+                    <h2>8. Disclaimer of Warranties</h2>
+                    <p>The Website is provided on an "as is" and "as available" basis. EduSkill makes no representations or warranties of any kind, express or implied, as to the operation of the Website or the information, content, materials, or products included on this site.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>9. Limitation of Liability</h2>
+                    <p>EduSkill will not be liable for any damages of any kind arising from the use of this Website, including, but not limited to direct, indirect, incidental, punitive, and consequential damages.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>10. Governing Law</h2>
+                    <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to its conflict of law provisions. You agree to submit to the personal jurisdiction of the courts located in Pune, Maharashtra for any legal actions arising from these Terms.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>11. Changes to Terms</h2>
+                    <p>EduSkill reserves the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                </div>
+
+                <div class="terms-section">
+                    <h2>12. Contact Information</h2>
+                    <p>If you have any questions about these Terms, please contact us at:</p>
+                    <p>EduSkill Foundation<br>
+                    123 Education Street<br>
+                    Pune, Maharashtra<br>
+                    Email: legal@eduskill.org<br>
+                    Phone: +91 98765 43210</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </main>
+
+    <!-- Footer -->
+   <!-- <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EduSkill Foundation</h3>
+                    <p>Bringing quality STEM education to underserved communities across India.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></极客时间></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="programs.html">Programs</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
+                        <li><a href="refund.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Pune, Maharashtra</li>
+                        <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+                        <li><i class="fas fa-envelope"></i> info@eduskill.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 EduSkill Foundation. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>-->
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            
+            if (body.classList.contains('light-theme')) {
+                localStorage.setItem('theme', 'light');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // Mobile Navigation
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileNavBtn.addEventListener('click', () => {
+            nav.classList.toggle('responsive');
+        });
+        
+        // Background Particles
+        const backgroundEffect = document.getElementById('backgroundEffect');
+        
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 20 + 5;
+                const posX = Math.random() * 100;
+                const delay = Math.random() * 15;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                backgroundEffect.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+        
+        // Back to Top Button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>

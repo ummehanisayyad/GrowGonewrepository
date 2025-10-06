@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSkill - Education & Skill Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #210440;      /* Dark purple */
+            --secondary: #FDB095;    /* Light peach */
+            --accent: #FFBA00;       /* Vibrant yellow */
+            --accent2: #E5958E;      /* Soft coral */
+            --text: #FFFFFF;
+            --background: #0F0820;
+            --card-bg: #1C0D36;
+            --header-bg: rgba(33, 4, 64, 0.95);
+            --footer-bg: #0F0820;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.4);
+            --gradient: linear-gradient(135deg, #210440 0%, #3A1B6E 100%);
+            --gradient-accent: linear-gradient(135deg, #3A1B6E 0%, #FFBA00 100%);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .light-theme {
+            --primary: #3A1B6E;
+            --secondary: #FDB095;
+            --accent: #FFBA00;
+            --accent2: #E5958E;
+            --text: #333333;
+            --background: #F5F2FF;
+            --card-bg: #FFFFFF;
+            --header-bg: rgba(245, 242, 255, 0.95);
+            --footer-bg: #3A1B6E;
+            --footer-text: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, #FDB095 0%, #3A1B6E 100%);
+            --gradient-accent: linear-gradient(135deg, #FDB095 0%, #FFBA00 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(253, 176, 149, 0.15) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 186, 0, 0.1) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(229, 149, 142, 0.1) 0%, transparent 30%);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .light-theme body {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(253, 176, 149, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 186, 0, 0.05) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, rgba(229, 149, 142, 0.08) 0%, transparent 30%);
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--accent2);
+            font-size: 2.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background: var(--accent);
+            transition: var(--transition);
+            border-radius: 3px;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 2px solid var(--accent);
+            color: var(--text);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        /* Mobile Nav Button */
+        .mobile-nav-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            text-align: center;
+            background: var(--gradient);
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFBA00' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: rotate 30s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background: var(--accent);
+            color: var(--primary);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--secondary);
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .btn:hover:before {
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Interactive Features */
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 186, 0, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 15%;
+            left: 10%;
+            animation-delay: 0s;
+            background: rgba(255, 186, 0, 0.15);
+        }
+
+        .floating-element:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            left: 80%;
+            animation-delay: -2s;
+            background: rgba(253, 176, 149, 0.1);
+        }
+
+        .floating-element:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 40%;
+            left: 75%;
+            animation-delay: -5s;
+            background: rgba(229, 149, 142, 0.1);
+        }
+
+        .floating-element:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            top: 60%;
+            left: 15%;
+            animation-delay: -7s;
+            background: rgba(33, 4, 64, 0.1);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(10deg);
+            }
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 60px;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 186, 0, 0.2);
+            min-width: 200px;
+            animation: fadeInUp 1.6s ease-out;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            font-size: 1.1rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 25px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px var(--shadow);
+            transform: rotateY(5deg) rotateX(5deg);
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+
+        .about-image:hover img {
+            transform: rotateY(0) rotateX(0);
+            box-shadow: 0 20px 50px var(--shadow);
+        }
+
+        /* Benefits Section */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .benefit-card:before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 0;
+            background: var(--gradient-accent);
+            bottom: 0;
+            left: 0;
+            transition: var(--transition);
+            z-index: -1;
+            opacity: 0.2;
+        }
+
+        .benefit-card:hover:before {
+            height: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .benefit-icon {
+            width: 90px;
+            height: 90px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2.2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--accent);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .benefit-card p {
+            font-size: 1.1rem;
+        }
+
+        /* Programs Section */
+        .programs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .program-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .program-image {
+            height: 220px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 3.5rem;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .program-image:before {
+            content: '';
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background: rgba(255, 186, 0, 0.1);
+            transform: rotate(45deg) translate(-20%, -50%);
+            transition: var(--transition);
+        }
+
+        .program-card:hover .program-image:before {
+            transform: rotate(45deg) translate(20%, 50%);
+        }
+
+        .program-content {
+            padding: 30px;
+        }
+
+        .program-content h3 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .program-content ul {
+            margin-left: 20px;
+            margin-bottom: 25px;
+        }
+
+        .program-content li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .program-content li:before {
+            content: '▸';
+            color: var(--accent);
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .contact-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            border: 2px solid var(--accent);
+        }
+
+        .contact-form {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px var(--shadow);
+            border: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid rgba(255, 186, 0, 0.3);
+            border-radius: 8px;
+            background: var(--background);
+            color: var(--text);
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 186, 0, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 80px 0 40px;
+            position: relative;
+            border-top: 2px solid var(--accent);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            color: var(--footer-text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: var(--accent);
+            border-radius: 50%;
+            font-size: 1.3rem;
+            transition: var(--transition);
+            border: 2px solid var(--accent);
+        }
+
+        .social-icons a:hover {
+            background: var(--accent);
+            color: var(--background);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 186, 0, 0.2);
+            font-size: 1.1rem;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: var(--gradient);
+            padding: 80px 0;
+            text-align: center;
+            margin: 80px 0;
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text);
+            position: relative;
+            padding: 0 40px;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 4rem;
+            color: var(--accent);
+            position: absolute;
+            opacity: 0.5;
+        }
+
+        .quote:before {
+            left: 0;
+            top: -20px;
+        }
+
+        .quote:after {
+            right: 0;
+            bottom: -40px;
+        }
+
+        .author {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        /* AI Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+        }
+
+        .chatbot-header {
+            background: var(--gradient);
+            padding: 15px 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 12px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .bot-message {
+            background: var(--secondary);
+            color: var(--primary);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-message {
+            background: var(--accent);
+            color: var(--primary);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid rgba(255, 186, 0, 0.2);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid rgba(255, 186, 0, 0.3);
+            border-radius: 20px;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .chatbot-input button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 0 15px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Enhanced Background Effects */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent);
+            opacity: 0.3;
+            animation: particle-float 20s infinite linear;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .glow-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            filter: blur(40px);
+            opacity: 0.1;
+            animation: glow-move 15s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes glow-move {
+            0% {
+                transform: translate(10vw, 10vh);
+            }
+            100% {
+                transform: translate(80vw, 80vh);
+            }
+        }
+
+        /* Enhanced Animations */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .bounce-in {
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-container,
+            .webinar-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .stats-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .mobile-nav-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+
+            .quote {
+                font-size: 1.5rem;
+            }
+
+            nav.responsive {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                box-shadow: 0 10px 20px var(--shadow);
+                padding: 20px;
+                border-radius: 0 0 10px 10px;
+                border-top: 2px solid var(--accent);
+            }
+
+            nav.responsive ul {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+            }
+        }
+        #langBtn { padding: 6px 12px; margin-bottom: 10px; cursor: pointer; }
+        nav ul { list-style: none; padding: 0; }
+        nav ul li { display: inline; margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Background Effects -->
+    <div class="particles-container" id="particlesContainer"></div>
+    <div class="glow-effect"></div>
+    <div class="glow-effect" style="animation-delay: -5s;"></div>
+    <div class="glow-effect" style="animation-delay: -10s;"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span id="growGo" data-en="Grow Go" data-hi="ग्रोगो">Grow Go</span>
+                </a>
+
+                <nav id="nav">
+                    <ul>
+                        <li><a href="#home" data-en="Home" data-hi="होम">Home</a></li>
+                        <li><a href="#programs" data-en="Programs" data-hi="प्रोग्राम्स">Programs</a></li>
+                        <li><a href="task.html" data-en="My Tasks" data-hi="मेरे कार्य">My Tasks</a></li>
+                        <li><a href="Level Up: Communication" data-en="Level Up: Communication" data-hi="लेवल अप: कम्युनिकेशन">Level Up: Communication</a></li>
+                        <li><a href="feedback.html" data-en="Feedback" data-hi="फीडबैक">Feedback</a></li>
+                        <li><a href="login.html" data-en="Login/Sign-up" data-hi="लॉगिन/साइन-अप">Login/Sign-up</a></li>
+                        <li><a href="#contact" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-nav-btn" id="mobileNavBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!--Button to switch language -->
+        <button id="langBtn">Switch to Hindi</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="container">
+            <h1 id="Empowering Rural Youth Through Education & Skills" data-en="Empowering Rural Youth Through Education & Skills" data-hi="शिक्षा और कौशल के माध्यम से ग्रामीण युवाओं को सशक्त बनाना">Empowering Rural Youth Through Education & Skills</h1>
+
+            <p id="We provide STEM education, career guidance, and skill development programs to help rural students achieve their full potential." data-en="We provide STEM education, career guidance, and skill development programs to help rural students achieve their full potential." data-hi="हम ग्रामीण विद्यार्थियों को उनकी पूरी क्षमता तक पहुँचने में मदद करने के लिए STEM शिक्षा, करियर मार्गदर्शन और कौशल विकास कार्यक्रम प्रदान करते हैं">We provide STEM education, career guidance, and skill development programs to help rural students achieve their full potential.</p>
+
+            <a href="#programs" class="btn pulse" data-en="programs" data-hi="हमारे कार्यक्रमों को जानें">Explore Our Programs</a>
+            
+           
+    </section>
+
+    <!-- Quote Section -->
+    <div class="quote-section">
+        <div class="container">
+            <div class="quote" id="Education is not just preparation for life,
+                it is life itself.
+                Every skill you learn today,
+                builds the foundation for tomorrow." data-en="Education is not just preparation for life,
+                it is life itself.
+                Every skill you learn today,
+                builds the foundation for tomorrow." data-hi="शिक्षा केवल जीवन की तैयारी नहीं है,
+                बल्कि वही स्वयं जीवन है।
+                आज सीखा गया प्रत्येक कौशल
+                कल के मजबूत भविष्य की नींव रखता है">
+                “Education is not just preparation for life,
+                it is life itself.
+                Every skill you learn today,
+                builds the foundation for tomorrow.”
+            </div>
+            <div class="author" id="John Dewey" data-en="John Dewey" data-hi="जॉन ड्यूई">- John Dewey</div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="About Us" data-en="About Us" data-hi="हमारी पहचान">About Us</h2>
+                <p id="Learn about our mission to bridge the educational gap in rural communities" data-en="Learn about our mission to bridge the educational gap in rural communities" data-hi="हमारे मिशन के बारे में जानें, जिसका उद्देश्य ग्रामीण समुदायों में शिक्षा की खाई को पाटना है">Learn about our mission to bridge the educational gap in rural communities</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text slide-in-left">
+                    <h3 id="Transforming Rural Education" data-en="Transforming Rural Education" data-hi="ग्रामीण शिक्षा को नई दिशा">Transforming Rural Education</h3>
+                    <p  data-en="EduSkill is dedicated to empowering rural youth through comprehensive education and skill development programs. We believe that every student, regardless of their geographical location, deserves access to quality education and opportunities." data-hi="एडुस्किल ग्रामीण युवाओं को समग्र शिक्षा और कौशल विकास कार्यक्रमों के माध्यम से सशक्त बनाने के लिए समर्पित है। हमारा विश्वास है कि प्रत्येक विद्यार्थी, चाहे वह किसी भी भौगोलिक क्षेत्र से हो, गुणवत्तापूर्ण शिक्षा और अवसरों का हक़दार है">
+                        EduSkill is dedicated to empowering rural youth through comprehensive education and skill development programs. We believe that every student, regardless of their geographical location, deserves access to quality education and opportunities.</p>
+                    
+                    <p  data-en="Our initiatives focus on bringing STEM education, career guidance, and digital skills to rural areas, helping students compete on a level playing field with their urban counterparts." data-hi="हमारी पहल ग्रामीण क्षेत्रों में STEM शिक्षा, करियर मार्गदर्शन और डिजिटल कौशल लाने पर केंद्रित है, ताकि छात्र अपने शहरी समकक्षों के साथ समान स्तर पर प्रतिस्पर्धा कर सकें">c</p>
+
+                    <p  data-en="Through our workshops, training programs, and mentorship, we aim to unlock the potential of rural youth and prepare them for successful careers in the modern workforce." data-hi="मारे कार्यशालाओं, प्रशिक्षण कार्यक्रमों और मार्गदर्शन के माध्यम से, हमारा लक्ष्य ग्रामीण युवाओं की क्षमता को उजागर करना और उन्हें आधुनिक कार्यक्षेत्र में सफल करियर के लिए तैयार करना है">Through our workshops, training programs, and mentorship, we aim to unlock the potential of rural youth and prepare them for successful careers in the modern workforce.</p>
+
+                    <a href="#contact" class="btn" data-en="Get Involved" data-hi="हमसे जुड़ें">Get Involved</a>
+                </div>
+                <div class="about-image slide-in-right">
+                    <img src="pic1.jpg" alt="Students learning">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Benefits" data-hi="फायदे">Benefits</h2>
+                <p data-en="How our programs create positive impact in rural communities" data-hi="हमारे कार्यक्रम ग्रामीण समुदायों में सकारात्मक प्रभाव कैसे डालते हैं">How our programs create positive impact in rural communities</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 data-en="STEM Education" data-hi="STEM शिक्षा">STEM Education</h3>
+                    <p data-en="Hands-on learning experiences in science, technology, engineering, and mathematics to foster innovation and critical thinking." data-hi="विज्ञान, प्रौद्योगिकी, अभियांत्रिकी और गणित में व्यावहारिक सीखने के अनुभव, जो नवाचार और समालोचनात्मक सोच को बढ़ावा देते हैं">Hands-on learning experiences in science, technology, engineering, and mathematics to foster innovation and critical thinking.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3 data-en="Career Guidance" data-hi="करियर मार्गदर्शन">Career Guidance</h3>
+                    <p data-en="Expert counseling and resources to help students navigate career options and competitive exam preparation." data-hi="विशेषज्ञ परामर्श और संसाधन, जो छात्रों को करियर विकल्प चुनने और प्रतियोगी परीक्षा की तैयारी में मार्गदर्शन करने में मदद करते हैं">Expert counseling and resources to help students navigate career options and competitive exam preparation.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 data-en="Language Skills" data-hi="भाषा कौशल">Language Skills</h3>
+                    <p data-en="Spoken English and communication programs to enhance employability and confidence." data-hi="नौकरी योग्यता और आत्मविश्वास बढ़ाने के लिए अंग्रेज़ी बोलने और संचार कौशल कार्यक्रम"> Spoken English and communication programs to enhance employability and confidence.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 data-en="Digital Literacy" data-hi="डिजिटल साक्षरता" >Digital Literacy</h3>
+                    <p data-en="Training in modern technologies like 3D printing, CAD software, and online job platforms." data-hi="3D प्रिंटिंग, CAD सॉफ़्टवेयर और ऑनलाइन जॉब प्लेटफ़ॉर्म जैसी आधुनिक तकनीकों में प्रशिक्षण">Training in modern technologies like 3D printing, CAD software, and online job platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Our Programs" data-hi="हमारे कार्यक्रम">Our Programs</h2>
+                <p data-en="Comprehensive educational initiatives designed for rural youth" data-hi="ग्रामीण युवाओं के लिए डिज़ाइन की गई समग्र शैक्षिक पहलें">Comprehensive educational initiatives designed for rural youth</p>
+            </div>
+            <div class="programs-container">
+                <div class="program-card">
+                    <div class="program-image">
+                       
+                        <img src="pic2.jpg" width="400" height="300">
+                    </div>
+                    <div class="program-content">
+                        <h3 data-en="STEM Awareness Programs" data-hi="STEM जागरूकता कार्यक्रम">STEM Awareness Programs</h3>
+                        <ul>
+                            <li data-en="Conduct STEM workshops in rural schools" data-hi="ग्रामीण स्कूलों में STEM कार्यशालाओं का आयोजन करना">Conduct STEM workshops in rural schools</li>
+                            <li data-en="Develop interactive STEM kits for hands-on learning" data-hi="व्यावहारिक सीखने के लिए इंटरैक्टिव STEM किट विकसित करना" >Develop interactive STEM kits for hands-on learning</li>
+                            <li data-en="Train students in 3D printing and CAD software" data-hi="छात्रों को 3D प्रिंटिंग और CAD सॉफ़्टवेयर में प्रशिक्षण देना">Train students in 3D printing and CAD software</li>
+                            <li data-en="Experiments with physics and engineering principles" data-hi="भौतिकी और अभियांत्रिकी के सिद्धांतों के साथ प्रयोग करना">Experiments with physics and engineering principles</li>
+                        </ul>
+                        <a href="STEM.html" class="btn" data-en="Learn More" data-hi="और जानें">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-image">
+                       <img src="pic3.jpg" width="400" height="300">
+                    </div>
+                    <div class="program-content">
+                        <h3 data-en="Career Guidance" data-hi="करियर मार्गदर्शन">Career Guidance</h3>
+                        <ul> 
+                            <li data-en="Preparation for competitive exams (JEE, NEET, UPSC, MPSC)" data-hi="प्रतियोगी परीक्षाओं की तैयारी (JEE, NEET, UPSC, MPSC)">Preparation for competitive exams (JEE, NEET, UPSC, MPSC)</li>
+                            <li data-en="Spoken English and communication skill development" data-hi="अंग्रेज़ी बोलने और संचार कौशल विकास">Spoken English and communication skill development</li>
+                            <li data-en="Resume writing and interview preparation" data-hi="रिज़्यूमे लेखन और साक्षात्कार तैयारी">Resume writing and interview preparation</li>
+                            <li data-en="Guidance on online job portals and freelancing" data-hi="ऑनलाइन जॉब पोर्टल और फ्रीलांसिंग पर मार्गदर्शन">Guidance on online job portals and freelancing</li>
+                        </ul>
+                        <a href="#contact" class="btn" data-en="Learn More" data-hi="और जानें">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-image">
+                       <img src="pic4.jpg" width="400" height="300">
+                    </div>
+                    <div class="program-content">
+                        <h3 data-en="Digital Skill Development" data-hi="डिजिटल कौशल विकास">Digital Skill Development</h3>
+                        <ul>
+                            <li data-en="Basic to advanced computer literacy programs" data-hi="बेसिक से एडवांस कंप्यूटर कौशल विकास कार्यक्रम">Basic to advanced computer literacy programs</li>
+                            <li data-en="Coding and programming fundamentals" data-hi="कोडिंग और प्रोग्रामिंग की मूल बातें">Coding and programming fundamentals</li>
+                            <li data-en="Digital marketing skills" data-hi="डिजिटल मार्केटिंग कौशल">Digital marketing skills</li>
+                            <li data-en="Online collaboration tools training" data-hi="ऑनलाइन सहयोग उपकरण प्रशिक्षण">Online collaboration tools training</li>
+                        </ul>
+                        <a href="#contact" class="btn" data-en="Learn More" data-hi="और जानें">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-en="Contact Us" data-hi="संपर्क करें">Contact Us</h2>
+                <p data-en="Get in touch with us to learn more about our programs" data-hi="हमारे कार्यक्रमों के बारे में और जानने के लिए हमसे संपर्क करें">Get in touch with us to learn more about our programs</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h3 data-en="Location" data-hi="स्थान">Location</h3>
+                            <p data-en="123 Education Street, Rural City" data-hi="123 शिक्षा मार्ग, ग्रामीण नगर">123 Education Street, Rural City</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h3 data-en="Phone" data-hi="फोन">Phone</h3>
+                            <p>+1 234 567 8900</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h3 data-en="Email" data-hi="ईमेल">Email</h3>
+                            <p>info@eduskill.org</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 data-en="Send us a Message" data-hi="हमें संदेश भेजें">Send us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name" data-en="Your Name" data-hi="आपका नाम">Your Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" data-en="Your Email" data-hi="आपका ईमेल">Your Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" data-en="Your Message" data-hi="आपका संदेश">Your Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" data-en="Send Message" data-hi="संदेश भेजें">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3 data-en="Grow Go" data-hi="ग्रोगो">Grow Go</h3>
+                    <p data-en="Empowering rural youth through education and skill development programs to create a brighter future." data-hi="ग्रामीण युवाओं को शिक्षा और कौशल विकास कार्यक्रमों के माध्यम से सशक्त बनाकर एक उज्जवल भविष्य का निर्माण करना">Empowering rural youth through education and skill development programs to create a brighter future.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3 data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" data-en="Home" data-hi="होम">Home</a></li>
+                        <li><a href="#programs" data-en="Programs" data-hi="हमारे कार्यक्रमों को जानें">Programs</a></li>
+                        <li><a href="My Tasks" data-en="My Tasks" data-hi="मेरे कार्य">My Tasks</a></li>
+                        <li><a href="Level Up: Communication" data-en="Level Up: Communication" data-hi="लेवल अप: कम्युनिकेशन">Level Up: Communication</a></li>
+                        <li><a href="#contact" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-en="Programs" data-hi="हमारे कार्यक्रमों को जानें">Programs</h3>
+                    <ul>
+                        <li><a href="#" data-en="STEM Education" data-hi="STEM शिक्षा">STEM Education</a></li>
+                        <li><a href="#" data-en="Career Guidance" data-hi="करियर मार्गदर्शन">Career Guidance</a></li>
+                        <li><a href="#" data-en="Digital Skills" data-hi="डिजिटल कौशल">Digital Skills</a></li>
+                        <li><a href="#" data-en="Language Training" data-hi="भाषा प्रशिक्षण">Language Training</a></li>
+                        <li><a href="#" data-en="Workshops" data-hi="कार्यशाला">Workshops</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3 data-en="Newsletter" data-hi="समाचार पत्रिका ">Newsletter</h3>
+                    <p data-en="Subscribe to our newsletter to get updates on our programs and events." data-hi="हमारी समाचार पत्रिका को सब्सक्राइब करें ताकि आपको हमारे कार्यक्रमों और आयोजनों की जानकारी मिलती रहे">Subscribe to our newsletter to get updates on our programs and events.</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="email">
+                        </div>
+                        <button type="submit" class="btn" data-en="Subscribe" data-hi="सब्सक्राइब करें ">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-en="&copy; 2023 Grow Go. All rights reserved." data-hi="© 2023 ग्रोगो. सभी अधिकार सुरक्षित">&copy; 2023 Grow Go. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>EduSkill Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot-message">
+                    Hello! I'm EduSkill Assistant. How can I help you today?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message...">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or respect OS preference
+        if (localStorage.getItem('theme') === 'light' || 
+            (window.matchMedia('(prefers-color-scheme: light)').matches && !localStorage.getItem('theme'))) {
+            body.classList.add('light-theme');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Navigation
+        const mobileNavBtn = document.getElementById('mobileNavBtn');
+        const nav = document.getElementById('nav');
+        
+        mobileNavBtn.addEventListener('click', () => {
+            nav.classList.toggle('responsive');
+        });
+
+        // Scroll Animation for Sections
+        const sections = document.querySelectorAll('section');
+        
+        function checkScroll() {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('load', checkScroll);
+
+        // Smooth Scrolling for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile nav if open
+                    if (nav.classList.contains('responsive')) {
+                        nav.classList.remove('responsive');
+                    }
+                }
+            });
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                this.reset();
+            });
+        }
+
+        // Animated Counter for Stats
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value + "+";
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Start counter animation when stats section is in view
+        const statsSection = document.getElementById('home');
+        const studentsCount = document.getElementById('studentsCount');
+        const programsCount = document.getElementById('programsCount');
+        const communitiesCount = document.getElementById('communitiesCount');
+        
+        let counted = false;
+        
+        function checkStatsView() {
+            const sectionTop = statsSection.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (sectionTop < windowHeight * 0.8 && !counted) {
+                animateValue(studentsCount, 0, 5000, 2000);
+                animateValue(programsCount, 0, 25, 1500);
+                animateValue(communitiesCount, 0, 50, 1800);
+                counted = true;
+            }
+        }
+        
+        window.addEventListener('scroll', checkStatsView);
+        window.addEventListener('load', checkStatsView);
+
+        // AI Chatbot Functionality
+        const chatbotButton = document.getElementById('chatbotButton');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+        
+        chatbotButton.addEventListener('click', () => {
+            chatbotWindow.style.display = 'flex';
+        });
+        
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+        });
+        
+        function addMessage(message, isUser = false) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(isUser ? 'user-message' : 'bot-message');
+            messageElement.textContent = message;
+            chatbotMessages.appendChild(messageElement);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+        
+        function handleChatbotInput() {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                chatbotInput.value = '';
+                
+                fetch("http://127.0.0.1:5000/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: message })
+})
+.then(res => res.json())
+.then(data => {
+    addMessage(data.answer);
+})
+.catch(err => {
+    addMessage("Sorry, I’m having trouble connecting right now.");
+});
+
+            }
+        }
+        
+        chatbotSend.addEventListener('click', handleChatbotInput);
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleChatbotInput();
+            }
+        });
+
+        // Language Toggle
+        const btn = document.getElementById("langBtn");
+        let isEnglish = true;
+
+        btn.addEventListener("click", () => {
+            // Select all elements that have data-en attribute
+            const elements = document.querySelectorAll("[data-en]");
+            
+            elements.forEach(el => {
+                el.innerText = isEnglish ? el.getAttribute("data-hi") : el.getAttribute("data-en");
+            });
+
+            btn.innerText = isEnglish ? "Switch to English" : "Switch to Hindi";
+            isEnglish = !isEnglish;
+        });
+
+        // Enhanced Background Effects - Particles
+        const particlesContainer = document.getElementById('particlesContainer');
+        
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 8px
+                const size = Math.random() * 6 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Random color from the palette
+                const colors = ['#FFBA00', '#FDB095', '#E5958E', '#210440'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = color;
+                
+                // Random animation duration and delay
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        createParticles();
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+#hero section
+Empowering Rural Youth Through Education & Skills
+
+We provide STEM education, career guidance, and skill development programs to help rural students achieve their full potential.
+
+We provide STEM education, career guidance, and skill development programs to help rural students achieve their full potential.
+
+#quote section  
+“Education is not just preparation for life,
+                it is life itself.
+                Every skill you learn today,
+                builds the foundation for tomorrow.”
+
+#about section
+Learn about our mission to bridge the educational gap in rural communities
+
+   EduSkill is dedicated to empowering rural youth through comprehensive education and skill development programs. We believe that every student, regardless of their geographical location, deserves access to quality education and opportunities.
+
+   #benefits
+   Hands-on learning experiences in science, technology, engineering, and mathematics to foster innovation and critical thinking.
+
+
